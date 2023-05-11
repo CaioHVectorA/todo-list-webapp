@@ -6,16 +6,19 @@ import './Animations.css'
 import { Route, RouterProvider, Routes } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
 import Home from './components/Home'
+import UserContext from './components/UserContext'
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [texto, setTexto] = useState('Teste')
 
   return (
+    <UserContext.Provider value={{texto, setTexto}}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
     </BrowserRouter>
+    </UserContext.Provider>
   )
 }
 

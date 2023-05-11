@@ -7,3 +7,25 @@
 body {
   background-color: #F3F5F7;
 }
+
+/* Definindo o estilo da barra de rolagem */
+.Scroll::-webkit-scrollbar {
+  width: 10px;
+  background-color: #f5f5f5;
+}
+
+/* Definindo o estilo do thumb (a alça da barra de rolagem) */
+.Scroll::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+}
+
+/* Definindo o estilo do thumb quando está sendo arrastado */
+.Scroll::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
+}
+
+/* Definindo o estilo da barra de rolagem quando estiver inativa */
+.Scroll::-webkit-scrollbar-track {
+  background-color: #f5f5f5;
+}
