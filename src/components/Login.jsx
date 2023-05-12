@@ -14,7 +14,7 @@ const Form = () => {
     }
     return (
         <div style={{display: 'flex',flexDirection: 'column'}}>
-        <h1>Crie sua Conta para a experiência completa de To-Do</h1>
+        <h1 style={{textAlign: 'center'}}>Crie sua Conta para a experiência completa de To-Do</h1>
         <div style={{display: 'flex',flexDirection: 'column',width: '40%',alignSelf: 'center',marginTop: '48px'}}>
         <h3 style={{}}>Nome</h3>
         <S.Input onChange={({target}) => setUsername(target.value)} value={username} />
