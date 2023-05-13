@@ -10,6 +10,7 @@ body {
 
 /* Definindo o estilo da barra de rolagem */
 .Scroll::-webkit-scrollbar {
+  position: absolute;
   width: 10px;
   background-color: #f5f5f5;
 }

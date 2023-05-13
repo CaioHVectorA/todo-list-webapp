@@ -34,7 +34,7 @@ const Division = () => {
   );
 };
 
-const Item = ({ Icon, Name, Ref }) => {
+const Item = ({ Icon, Name, Ref,estilo }) => {
   const [selected, setSelect] = useState(false);
   const { setTexto, setRef, todoData } = useContext(UserContext);
   return (
@@ -42,6 +42,7 @@ const Item = ({ Icon, Name, Ref }) => {
       className="HoverBackground"
       onClick={() => setRef(todoData[Ref])}
       style={{
+        ...estilo,
         display: "flex",
         padding: "10px 6px",
         borderRadius: "5px",
@@ -52,7 +53,7 @@ const Item = ({ Icon, Name, Ref }) => {
       }}
     >
       {Icon != null && <Icon style={{ color: "white", fontSize: "24px" }} />}
-      <h2 style={{ width: "100%", fontSize: `${330 / Name.length}px` }}>
+      <h2 style={{ width: "100%", fontSize: Name.length > 7 ? `${330 / Name.length}px` : '32px' }}>
         {Name}
       </h2>
       {/*depois, no código de criar, deixar um max lenght pra nao ter como fazer um Name minúsculo.*/}
@@ -80,22 +81,23 @@ const Menu = () => {
         <Item Icon={AiOutlineCheck} Name={'Fazer o site todolist'}/>
         <Division />
         <Item Icon={AiFillPhone} Name={'Ligar pro et bilu'}/> */}
-      {todoData.map(({ Icon, Name, Ref }) => (
+      {todoData.map(({ Icon, Name, Ref,estilo }) => (
         <div key={Name + Ref}>
-          <Item Icon={Icon} Name={Name} Ref={Ref} />
+          <Item Icon={Icon} Name={Name} Ref={Ref} estilo={estilo} />
           <Division />
         </div>
       ))}
       <DivAdd onClick={() => {
           const item = {
-              Name: 'Nova Lista',
+              Name: `Lista ${todoData.length}`,
               Icon: null,
               Ref: todoData.length,
-              Todos: []
+              Todos: [],
+              estilo: {}
           }
           console.log(item.Ref)
           setTodos(prevList => [...prevList, item])
-          setRef(todoData[item.Ref])
+          setRef(item)
       }}>
         <AiOutlinePlus
           style={{ borderRadius: "25px", fontSize: "50px" }}

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Menu from "./Menu";
 import UserContext from "./UserContext";
 import { AiOutlineEllipsis, AiOutlineClose,AiOutlinePlus } from "react-icons/ai";
@@ -93,7 +93,12 @@ function Main() {
   return (
     <div style={{ paddingTop: "27px", paddingLeft: "36px" }}>
 {
-  Ref && <h1>{Ref.Name}</h1>
+  Ref && <input style={{border: 'none',outline: 'none',backgroundColor: 'rgba(255,255,255,.1)',fontSize: '32px'}} value={Ref.Name} onChange={(e) => {
+    setRef(prevState => ({...prevState, Name: e.target.value}))
+    const tempArray = [...todoData]
+    tempArray[Ref.Ref].Name = e.target.value
+    console.log(todoData)
+  }}/>
 }
     </div>
   );
