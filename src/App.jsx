@@ -11,9 +11,9 @@ import Login from './components/Login'
 
 function App() {
   const [texto, setTexto] = useState('Teste')
-
+  const [guestMode, setGuestMode] = useState(false)
   return (
-    <UserContext.Provider value={{texto, setTexto}}>
+    <UserContext.Provider value={{texto, setTexto,guestMode,setGuestMode}}>
     <BrowserRouter>
       <Routes>
         <Route path="/Home" element={<Home />} />
