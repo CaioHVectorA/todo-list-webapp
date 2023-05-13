@@ -10,10 +10,11 @@ import UserContext from './components/UserContext'
 import Login from './components/Login'
 
 function App() {
-  const [texto, setTexto] = useState('Teste')
-
+  const [Ref, setRef] = useState(null)
+  const [todoData, setTodos] = useState([])
+  const [guestMode, setGuestMode] = useState(false)
   return (
-    <UserContext.Provider value={{texto, setTexto}}>
+    <UserContext.Provider value={{Ref, setRef,guestMode,setGuestMode,todoData,setTodos}}>
     <BrowserRouter>
       <Routes>
         <Route path="/Home" element={<Home />} />
