@@ -89,10 +89,12 @@ function Header() {
 }
 
 function Main() {
-  const { texto } = useContext(UserContext);
+  const { todoData,setTodos,Ref, setRef } = useContext(UserContext);
   return (
     <div style={{ paddingTop: "27px", paddingLeft: "36px" }}>
-      <h1>{texto}</h1>
+{
+  Ref && <h1>{Ref.Name}</h1>
+}
     </div>
   );
 }

@@ -36,11 +36,11 @@ const Division = () => {
 
 const Item = ({ Icon, Name, Ref }) => {
   const [selected, setSelect] = useState(false);
-  const { setTexto } = useContext(UserContext);
+  const { setTexto, setRef, todoData } = useContext(UserContext);
   return (
     <div
       className="HoverBackground"
-      onClick={() => setTexto(Name)}
+      onClick={() => setRef(todoData[Ref])}
       style={{
         display: "flex",
         padding: "10px 6px",
@@ -51,10 +51,10 @@ const Item = ({ Icon, Name, Ref }) => {
         width: "250px",
       }}
     >
-      <Icon style={{ color: "white", fontSize: "24px" }} />
+      {Icon != null && <Icon style={{ color: "white", fontSize: "24px" }} />}
       <h2 style={{ width: "100%", fontSize: `${330 / Name.length}px` }}>
         {Name}
-      </h2>{" "}
+      </h2>
       {/*depois, no código de criar, deixar um max lenght pra nao ter como fazer um Name minúsculo.*/}
       <AiOutlineRight
         style={{ fontSize: "24px", alignSelf: "center", marginTop: "2.6px" }}
@@ -64,21 +64,12 @@ const Item = ({ Icon, Name, Ref }) => {
 };
 const Menu = () => {
     const nav = useNavigate()
-  const [workList, setWorkList] = useState([]);
+//   const [workList, setWorkList] = useState([]'');
+  const {todoData, setTodos,setRef} = useContext(UserContext)
   return (
     <div
       className="Scroll"
-      style={{
-        height: "calc(100vh - 32px)",
-        overflowY: "scroll",
-        color: "white",
-        paddingTop: "32px",
-        width: "300px",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        backgroundColor: "#1A202E",
-      }}
+      style={{height: "calc(100vh - 32px)",overflowY: "scroll",color: "white",paddingTop: "32px",width: "300px",display: "flex",flexDirection: "column",alignItems: "center",backgroundColor: "#1A202E"}}
     >
       <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
         <AiOutlineCheck style={{ color: "white", fontSize: "54px" }} />
@@ -89,15 +80,23 @@ const Menu = () => {
         <Item Icon={AiOutlineCheck} Name={'Fazer o site todolist'}/>
         <Division />
         <Item Icon={AiFillPhone} Name={'Ligar pro et bilu'}/> */}
-      {workList.map(({ Icon, Name, Ref }) => (
+      {todoData.map(({ Icon, Name, Ref }) => (
         <div key={Name + Ref}>
           <Item Icon={Icon} Name={Name} Ref={Ref} />
           <Division />
         </div>
       ))}
-      <DivAdd
-
-      >
+      <DivAdd onClick={() => {
+          const item = {
+              Name: 'Nova Lista',
+              Icon: null,
+              Ref: todoData.length,
+              Todos: []
+          }
+          console.log(item.Ref)
+          setTodos(prevList => [...prevList, item])
+          setRef(todoData[item.Ref])
+      }}>
         <AiOutlinePlus
           style={{ borderRadius: "25px", fontSize: "50px" }}
           radius={50}
