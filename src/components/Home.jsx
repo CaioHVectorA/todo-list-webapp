@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import Menu from "./Menu";
 import UserContext from "./UserContext";
-import { AiOutlineEllipsis, AiOutlineClose,AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineEllipsis, AiOutlineClose,AiOutlinePlus,AiFillPlusCircle } from "react-icons/ai";
 import styled from "styled-components";
 import S from "../utilities/Styles";
 import { useNavigate } from "react-router";
+import Colors from '../utilities/Constants/colors'
+import workIcons from '../utilities/WorkIcons'
 const ListItem = styled.li`
   background-color: #fff;
   padding: 12px 32px;
@@ -90,15 +92,25 @@ function Header() {
 
 function Main() {
   const { todoData,setTodos,Ref, setRef } = useContext(UserContext);
+  console.log(todoData)
   return (
     <div style={{ paddingTop: "27px", paddingLeft: "36px" }}>
+        
 {
-  Ref && <input style={{border: 'none',outline: 'none',backgroundColor: 'rgba(255,255,255,.1)',fontSize: '32px'}} value={Ref.Name} onChange={(e) => {
+  Ref &&
+      <div style={{display: 'flex',gap: '8px',alignItems: 'center'}}>
+        {Ref.Icon !== null ? 
+        <Ref.Icon />
+        :
+        <AiFillPlusCircle onClick={() => console.log('TEM QUE MOSTRAR OOOOOOOOO TRECO DE ESCOLHER ICONE.')} style={{fontSize: '32px',color: Colors.Main,cursor: 'pointer'}}/>
+        }
+   <input style={{border: 'none',outline: 'none',backgroundColor: 'rgba(255,255,255,.1)',fontSize: '32px'}} value={Ref.Name} onChange={(e) => {
     setRef(prevState => ({...prevState, Name: e.target.value}))
     const tempArray = [...todoData]
     tempArray[Ref.Ref].Name = e.target.value
     console.log(todoData)
   }}/>
+      </div>
 }
     </div>
   );
