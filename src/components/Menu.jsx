@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   AiOutlineCheck,
   AiOutlineRight,
@@ -34,7 +34,14 @@ const Division = () => {
   );
 };
 
-const Item = ({ Icon, Name, Ref,estilo }) => {
+const Item = ({ Icon, Name, Ref,estilo,IconStyle }) => {
+  const [colorIcon,setColorIcon] = useState(IconStyle)
+  // useEffect(() => {
+  //   console.log(IconStyle)
+  //   if (IconStyle === '#000000') {
+  //     setColorIcon('#fff')
+  //   }
+  // }, [])
   const [selected, setSelect] = useState(false);
   const { setTexto, setRef, todoData } = useContext(UserContext);
   return (
@@ -52,7 +59,7 @@ const Item = ({ Icon, Name, Ref,estilo }) => {
         width: "250px",
       }}
     >
-      {Icon != null && <Icon style={{ color: "white", fontSize: "24px" }} />}
+      {Icon != null && <Icon style={{ color: IconStyle && IconStyle !== '#000000' ? IconStyle : "white", fontSize: "24px"}} />}
       <h2 style={{ width: "100%", fontSize: Name.length > 7 ? `${330 / Name.length}px` : '32px' }}>
         {Name}
       </h2>
@@ -81,9 +88,9 @@ const Menu = () => {
         <Item Icon={AiOutlineCheck} Name={'Fazer o site todolist'}/>
         <Division />
         <Item Icon={AiFillPhone} Name={'Ligar pro et bilu'}/> */}
-      {todoData.map(({ Icon, Name, Ref,estilo }) => (
+      {todoData.map(({ Icon, Name, Ref,estilo,IconStyle }) => (
         <div key={Name + Ref}>
-          <Item Icon={Icon} Name={Name} Ref={Ref} estilo={estilo} />
+          <Item Icon={Icon} Name={Name} Ref={Ref} estilo={estilo} IconStyle={IconStyle} />
           <Division />
         </div>
       ))}

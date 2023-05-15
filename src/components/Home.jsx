@@ -65,7 +65,7 @@ function Header() {
             onClick={() => setOpen(!open)}
             style={{ fontSize: "32px", cursor: "pointer" }}
           />
-        )}
+        )}⁹
         {open && (
           <AiOutlineClose
             onClick={() => setOpen(!open)}
@@ -94,6 +94,7 @@ function Main() {
   const { todoData,setTodos,Ref, setRef } = useContext(UserContext);
   const [modal,setModal] = useState(false)
   const [colorInput,setCI] = useState('#000000')
+                        console.log(todoData)
   return (
     <div style={{ paddingTop: "27px", paddingLeft: "36px",width: '100%',height: '100%' }}>
         
@@ -111,7 +112,17 @@ function Main() {
               <div style={{display: 'flex',gap: '12px',flexWrap: 'wrap'}}> 
               {Categoria.icones.map(Icon => (
                 <div key={Icon.nome} style={{display: "flex",flexDirection:'column',alignItems: 'center'}}>
-                  <Icon.icone style={{fontSize: '32px',color: colorInput}}/>
+                  <Icon.icone onClick={() => {
+                        setTodos(prevState => {
+                         const updatedTodos = [...prevState];
+                         const itemToModify = updatedTodos[Ref.Ref];
+                         itemToModify.Icon = Icon.icone;
+                         itemToModify.IconStyle = colorInput
+                         return updatedTodos;
+                    });
+                        // setRef(prevState => ({...prevState, Icon: Icon.icone}))
+                        setModal(!modal)
+                  }} style={{fontSize: '32px',color: colorInput,cursor: 'pointer'}}/>
                    <p>{Icon.nome}</p>
                 </div>
               ))}
@@ -125,7 +136,7 @@ function Main() {
   Ref &&
       <div style={{display: 'flex',gap: '8px',alignItems: 'center'}}>
         {Ref.Icon !== null ? 
-        <Ref.Icon />
+        <Ref.Icon style={{color: Ref.IconStyle ?  Ref.IconStyle : null}}/>
         :
         <AiFillPlusCircle onClick={() => setModal(!modal)} style={{fontSize: '32px',color: Colors.Main,cursor: 'pointer'}}/>
         }
