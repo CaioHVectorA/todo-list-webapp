@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import Menu from "./Menu";
 import UserContext from "./UserContext";
-import { AiOutlineEllipsis, AiOutlineClose,AiOutlinePlus } from "react-icons/ai";
+import { AiOutlineEllipsis, AiOutlineClose,AiOutlinePlus,AiFillPlusCircle,AiFillCloseCircle } from "react-icons/ai";
 import styled from "styled-components";
 import S from "../utilities/Styles";
 import { useNavigate } from "react-router";
+import Colors from '../utilities/Constants/colors'
+import workIcons from '../utilities/WorkIcons'
 const ListItem = styled.li`
   background-color: #fff;
   padding: 12px 32px;
@@ -63,7 +65,7 @@ function Header() {
             onClick={() => setOpen(!open)}
             style={{ fontSize: "32px", cursor: "pointer" }}
           />
-        )}
+        )}⁹
         {open && (
           <AiOutlineClose
             onClick={() => setOpen(!open)}
@@ -90,15 +92,58 @@ function Header() {
 
 function Main() {
   const { todoData,setTodos,Ref, setRef } = useContext(UserContext);
+  const [modal,setModal] = useState(false)
+  const [colorInput,setCI] = useState('#000000')
+                        console.log(todoData)
   return (
-    <div style={{ paddingTop: "27px", paddingLeft: "36px" }}>
+    <div style={{ paddingTop: "27px", paddingLeft: "36px",width: '100%',height: '100%' }}>
+        
+        {modal && <div style={{width: '100vw',height: '100vh',borderRadius: '0px',display: 'flex',alignItems: 'center',justifyContent: 'center',position: 'absolute',left: '0px',top: '0px',backgroundColor: 'rgba(0,0,0,.5)'}}>
+          <div className="Scroll" style={{width: '80%',height: '70%',background: 'white',borderRadius: '14px',padding: '16px 32px',overflow: 'auto'}}>
+            <div style={{width: '100%',display: 'flex',justifyContent: 'space-between'}}>
+            <AiFillCloseCircle style={{color: '#e76d89',fontSize: '48px',cursor: 'pointer'}} onClick={() => setModal(!modal)}  />
+              <input type={'color'} value={colorInput} onChange={(e) => setCI(e.target.value)} />
+            </div>
+            <div>
+              <h1>Escolha o ícone que mais combina com você!</h1>
+              {workIcons.map(Categoria => (
+                <div key={Categoria.nome}>
+                  <h3 style={{marginBottom: '16px',marginTop: '16px'}}>{Categoria.nome}</h3>
+              <div style={{display: 'flex',gap: '12px',flexWrap: 'wrap'}}> 
+              {Categoria.icones.map(Icon => (
+                <div key={Icon.nome} style={{display: "flex",flexDirection:'column',alignItems: 'center'}}>
+                  <Icon.icone onClick={() => {
+                        setTodos(prevState => {
+                         const updatedTodos = [...prevState];
+                         const itemToModify = updatedTodos[Ref.Ref];
+                         itemToModify.Icon = Icon.icone;
+                         itemToModify.IconStyle = colorInput
+                         return updatedTodos;
+                    });
+                        // setRef(prevState => ({...prevState, Icon: Icon.icone}))
+                        setModal(!modal)
+                  }} style={{fontSize: '32px',color: colorInput,cursor: 'pointer'}}/>
+                   <p>{Icon.nome}</p>
+                </div>
+              ))}
+              </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>}
 {
-  Ref && <input style={{border: 'none',outline: 'none',backgroundColor: 'rgba(255,255,255,.1)',fontSize: '32px'}} value={Ref.Name} onChange={(e) => {
+  Ref &&
+      <div style={{display: 'flex',gap: '8px',alignItems: 'center'}}>
+        {Ref.Icon !== null ? 
+        <Ref.Icon style={{color: Ref.IconStyle ?  Ref.IconStyle : null}}/>
+        :
+        <AiFillPlusCircle onClick={() => setModal(!modal)} style={{fontSize: '32px',color: Colors.Main,cursor: 'pointer'}}/>
+        }
+   <input style={{border: 'none',outline: 'none',backgroundColor: 'rgba(255,255,255,.1)',fontSize: '32px'}} value={Ref.Name} onChange={(e) => {
     setRef(prevState => ({...prevState, Name: e.target.value}))
-    const tempArray = [...todoData]
-    tempArray[Ref.Ref].Name = e.target.value
-    console.log(todoData)
   }}/>
+      </div>
 }
     </div>
   );
