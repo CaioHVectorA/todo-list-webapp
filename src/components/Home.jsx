@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import Menu from "./Menu";
 import UserContext from "./UserContext";
-import { AiOutlineEllipsis, AiOutlineClose,AiOutlinePlus,AiFillPlusCircle } from "react-icons/ai";
+import { AiOutlineEllipsis, AiOutlineClose,AiOutlinePlus,AiFillPlusCircle,AiFillCloseCircle } from "react-icons/ai";
 import styled from "styled-components";
 import S from "../utilities/Styles";
 import { useNavigate } from "react-router";
@@ -92,23 +92,45 @@ function Header() {
 
 function Main() {
   const { todoData,setTodos,Ref, setRef } = useContext(UserContext);
-  console.log(todoData)
+  const [modal,setModal] = useState(false)
+  const [colorInput,setCI] = useState('#000000')
   return (
-    <div style={{ paddingTop: "27px", paddingLeft: "36px" }}>
+    <div style={{ paddingTop: "27px", paddingLeft: "36px",width: '100%',height: '100%' }}>
         
+        {modal && <div style={{width: '100vw',height: '100vh',borderRadius: '0px',display: 'flex',alignItems: 'center',justifyContent: 'center',position: 'absolute',left: '0px',top: '0px',backgroundColor: 'rgba(0,0,0,.5)'}}>
+          <div className="Scroll" style={{width: '80%',height: '70%',background: 'white',borderRadius: '14px',padding: '16px 32px',overflow: 'auto'}}>
+            <div style={{width: '100%',display: 'flex',justifyContent: 'space-between'}}>
+            <AiFillCloseCircle style={{color: '#e76d89',fontSize: '48px',cursor: 'pointer'}} onClick={() => setModal(!modal)}  />
+              <input type={'color'} value={colorInput} onChange={(e) => setCI(e.target.value)} />
+            </div>
+            <div>
+              <h1>Escolha o ícone que mais combina com você!</h1>
+              {workIcons.map(Categoria => (
+                <div key={Categoria.nome}>
+                  <h3 style={{marginBottom: '16px',marginTop: '16px'}}>{Categoria.nome}</h3>
+              <div style={{display: 'flex',gap: '12px',flexWrap: 'wrap'}}> 
+              {Categoria.icones.map(Icon => (
+                <div key={Icon.nome} style={{display: "flex",flexDirection:'column',alignItems: 'center'}}>
+                  <Icon.icone style={{fontSize: '32px',color: colorInput}}/>
+                   <p>{Icon.nome}</p>
+                </div>
+              ))}
+              </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>}
 {
   Ref &&
       <div style={{display: 'flex',gap: '8px',alignItems: 'center'}}>
         {Ref.Icon !== null ? 
         <Ref.Icon />
         :
-        <AiFillPlusCircle onClick={() => console.log('TEM QUE MOSTRAR OOOOOOOOO TRECO DE ESCOLHER ICONE.')} style={{fontSize: '32px',color: Colors.Main,cursor: 'pointer'}}/>
+        <AiFillPlusCircle onClick={() => setModal(!modal)} style={{fontSize: '32px',color: Colors.Main,cursor: 'pointer'}}/>
         }
    <input style={{border: 'none',outline: 'none',backgroundColor: 'rgba(255,255,255,.1)',fontSize: '32px'}} value={Ref.Name} onChange={(e) => {
     setRef(prevState => ({...prevState, Name: e.target.value}))
-    const tempArray = [...todoData]
-    tempArray[Ref.Ref].Name = e.target.value
-    console.log(todoData)
   }}/>
       </div>
 }
