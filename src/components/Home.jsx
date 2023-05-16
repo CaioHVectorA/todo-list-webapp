@@ -1,12 +1,29 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Menu from "./Menu";
 import UserContext from "./UserContext";
+import { BiChevronUp,BiChevronDown } from "react-icons/bi";
 import { AiOutlineEllipsis, AiOutlineClose,AiOutlinePlus,AiFillPlusCircle,AiFillCloseCircle } from "react-icons/ai";
+import { FaTrash } from 'react-icons/fa';
 import styled from "styled-components";
 import S from "../utilities/Styles";
+import Todo from './Todo'
 import { useNavigate } from "react-router";
 import Colors from '../utilities/Constants/colors'
 import workIcons from '../utilities/WorkIcons'
+const ButtonAdd = styled.button`
+  transition: 300ms;
+padding: 2px 10px;
+border-radius: 12px;
+display: flex;
+align-items: center;
+justify-content: center;
+margin-top: 32px;
+  background: transparent;
+  &:hover {
+      cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.1);
+  }
+`;
 const ListItem = styled.li`
   background-color: #fff;
   padding: 12px 32px;
@@ -65,7 +82,7 @@ function Header() {
             onClick={() => setOpen(!open)}
             style={{ fontSize: "32px", cursor: "pointer" }}
           />
-        )}⁹
+        )}
         {open && (
           <AiOutlineClose
             onClick={() => setOpen(!open)}
@@ -94,9 +111,30 @@ function Main() {
   const { todoData,setTodos,Ref, setRef } = useContext(UserContext);
   const [modal,setModal] = useState(false)
   const [colorInput,setCI] = useState('#000000')
-                        console.log(todoData)
+  const [colorText, setColorText] = useState('#000000')
+  const inputref = useRef()
+  useEffect(() => {
+    const intervalID = setInterval(() => {
+    if (Ref && inputref.current && inputref.current !== document.activeElement  && inputref.current.value === '') {
+      setTodos(prevState => {
+          const updatedTodos = [...prevState];
+          const itemToModify = updatedTodos[Ref.Ref];
+          itemToModify.Name = 'Lista sem nome'
+          return updatedTodos;
+      })
+    } 
+        return () => {
+      clearInterval(intervalID);
+    };
+    }, 500)
+  }, [Ref])
+  useEffect(() => {
+    if (todoData !== [] && todoData[0] && todoData[0].Name) {
+    localStorage.setItem('TODO_LIST_DATA',JSON.stringify(todoData))
+    }
+  }, [todoData])
   return (
-    <div style={{ paddingTop: "27px", paddingLeft: "36px",width: '100%',height: '100%' }}>
+    <div style={{ paddingTop: "27px", paddingLeft: "36px",width: 'calc(100% - 36px)',height: 'calc(100% - 27px)' }}>
         
         {modal && <div style={{width: '100vw',height: '100vh',borderRadius: '0px',display: 'flex',alignItems: 'center',justifyContent: 'center',position: 'absolute',left: '0px',top: '0px',backgroundColor: 'rgba(0,0,0,.5)'}}>
           <div className="Scroll" style={{width: '80%',height: '70%',background: 'white',borderRadius: '14px',padding: '16px 32px',overflow: 'auto'}}>
@@ -134,16 +172,53 @@ function Main() {
         </div>}
 {
   Ref &&
+  <div>
+    
       <div style={{display: 'flex',gap: '8px',alignItems: 'center'}}>
         {Ref.Icon !== null ? 
         <Ref.Icon style={{color: Ref.IconStyle ?  Ref.IconStyle : null}}/>
         :
         <AiFillPlusCircle onClick={() => setModal(!modal)} style={{fontSize: '32px',color: Colors.Main,cursor: 'pointer'}}/>
         }
-   <input style={{border: 'none',outline: 'none',backgroundColor: 'rgba(255,255,255,.1)',fontSize: '32px'}} value={Ref.Name} onChange={(e) => {
-    setRef(prevState => ({...prevState, Name: e.target.value}))
+        <div style={{display: 'flex',gap: '8px'}}>
+   <input ref={inputref} style={{border: 'none',color: todoData[Ref.Ref].colorText,outline: 'none',width: todoData[Ref.Ref].Name.length * 26.3,maxWidth: '500px',backgroundColor: 'rgba(255,255,255,.1)',fontSize: '32px'}} value={todoData[Ref.Ref].Name} onChange={(e) => {
+                            setTodos(prevState => {
+                         const updatedTodos = [...prevState];
+                         const itemToModify = updatedTodos[Ref.Ref];
+                         itemToModify.Name = e.target.value;
+                         return updatedTodos;
+                    });
   }}/>
+  <input type={"color"} value={todoData[Ref.Ref].colorText} onChange={({target}) => {
+  setTodos(prevState => {
+     const updatedTodos = [...prevState];
+    const itemToModify = updatedTodos[Ref.Ref];
+    itemToModify.colorText = target.value
+    return updatedTodos;
+                    });
+  }}/>
+          </div>
       </div>
+          <div style={{display: 'flex',flexDirection: 'column',gap: '12px',marginTop: '24px'}}>
+           {Ref.Todos.map((Item,index) => (
+             <Todo Item={Item} index={index}/>
+           ))}
+            </div>
+            <ButtonAdd onClick={() => {
+              const prevState = [...todoData]
+              const itemToModify = prevState[Ref.Ref]
+              const todo = {
+                Nome: 'Minha Tarefa',
+                Feito: false,
+                color: '#000',
+              }
+              itemToModify.Todos.push(todo)
+             setTodos(prevState)
+            }} style={{width: '80%',border: '1px solid rgba(0,0,0,.2)',marginRight: 'auto',marginLeft: 'auto'}}>
+            <AiFillPlusCircle style={{fontSize: '54px'}}/>
+              </ButtonAdd>
+  </div>
+      
 }
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -13,6 +13,13 @@ function App() {
   const [Ref, setRef] = useState(null)
   const [todoData, setTodos] = useState([])
   const [guestMode, setGuestMode] = useState(false)
+  useEffect(() => {
+    if (!!localStorage.getItem('TODO_LIST_DATA')) {
+      const storagData = localStorage.getItem('TODO_LIST_DATA')
+      const data = JSON.parse(storagData)
+      setTodos(data)
+    }
+  }, [])
   return (
     <UserContext.Provider value={{Ref, setRef,guestMode,setGuestMode,todoData,setTodos}}>
     <BrowserRouter>
