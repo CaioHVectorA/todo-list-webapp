@@ -112,6 +112,7 @@ function Main() {
   const [modal,setModal] = useState(false)
   const [colorInput,setCI] = useState('#000000')
   const [colorText, setColorText] = useState('#000000')
+  console.log(todoData)
   const inputref = useRef()
   useEffect(() => {
     const intervalID = setInterval(() => {
@@ -175,7 +176,7 @@ function Main() {
   <div>
     
       <div style={{display: 'flex',gap: '8px',alignItems: 'center'}}>
-        {Ref.Icon !== null ? 
+        {Ref.Icon && Ref.Icon !== null ? 
         <Ref.Icon style={{color: Ref.IconStyle ?  Ref.IconStyle : null}}/>
         :
         <AiFillPlusCircle onClick={() => setModal(!modal)} style={{fontSize: '32px',color: Colors.Main,cursor: 'pointer'}}/>
@@ -201,7 +202,7 @@ function Main() {
       </div>
           <div style={{display: 'flex',flexDirection: 'column',gap: '12px',marginTop: '24px'}}>
            {Ref.Todos.map((Item,index) => (
-             <Todo Item={Item} index={index}/>
+             <Todo key={index} Item={Item} index={index}/>
            ))}
             </div>
             <ButtonAdd onClick={() => {

@@ -25,7 +25,7 @@ function Todo({Item, index}) {
   return (
                  <div style={{display: 'flex',justifyContent: 'space-between',padding: '12px 16px',border: '1px solid rgba(0,0,0,.1)',backgroundColor: 'white',borderRadius: '8px'}} key={Item.Nome+Item.color+index.toString()}>
                <div style={{display: 'flex',gap: '12px',alignItems: 'center'}}>
-                 <input type={'checkbox'} checked={Item.Feito} onChange={() => {
+                 <input  type={'checkbox'} checked={Item.Feito} onChange={() => {
                      const state = [...todoData]
                      const item = state[Ref.Ref]
                      console.log(item.Todos[index].Feito)
@@ -33,7 +33,7 @@ function Todo({Item, index}) {
                      setTodos(state)
                  }}/>
                {/* <div style={{height: '40px',aspectRatio: '1',border: '1px solid black'}}> </div> */}
-               <input value={inputText} onChange={(e) => handleInputChange(e)} onBlur={handleInputBlur}/>
+               <input style={{width: '500px'}} value={inputText} onChange={(e) => handleInputChange(e)} onBlur={handleInputBlur}/>
                  
                </div>
                <div style={{fontSize: '19.6px',cursor: 'pointer',display: 'flex',alignItems: 'center',gap: '8px'}}>

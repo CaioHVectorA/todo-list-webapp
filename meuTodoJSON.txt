@@ -1,0 +1,200 @@
+[
+   {
+      "Name":"Fazer Punho Mortal",
+      "Ref":0,
+      "Todos":[
+         {
+            "Nome":"Melhorar os diálogos dos Personagens ",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Aprofundar Depressão/Problemas pessoas de Naok.",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Melhorar Coadjuvantes - Aprofundar mais eles durante Esgoto",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Aprofundar Delimitador. Mostrar como ele é soberano e amedrontador.",
+            "Feito":false,
+            "color":"#000"
+         }
+      ],
+      "colorText":"#000000",
+      "estilo":{
+         
+      },
+      "IconStyle":"#000000"
+   },
+   {
+      "Name":"Terminar TodoListSite",
+      "Ref":1,
+      "Todos":[
+         {
+            "Nome":"API - Fazer api que salva o json.stringify de uma vez pra nao dar k.o",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Sistema de mover Todos --------------------------------------------------------------->",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Mudar foto ali no placeholder de acordo com a api",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"3 pontinhos Menu - O que vai ter além de logout?",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Responsivo? Mobile?",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Poder trocar de Icone mesmo depois de ter colocado.",
+            "Feito":false,
+            "color":"#000"
+         }
+      ],
+      "colorText":"#000000",
+      "estilo":{
+         
+      },
+      "IconStyle":"#000000"
+   },
+   {
+      "Name":"App UVC",
+      "Ref":2,
+      "Todos":[
+         
+      ],
+      "colorText":"#ab0c84",
+      "estilo":{
+         
+      },
+      "IconStyle":"#ead900"
+   },
+   {
+      "Name":"ZAPBOT",
+      "Ref":3,
+      "Todos":[
+         {
+            "Nome":"Comando de tradução",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"SCP??",
+            "Feito":false,
+            "color":"#000"
+         }
+      ],
+      "colorText":"#01fa07",
+      "estilo":{
+         
+      },
+      "IconStyle":"#000000"
+   },
+   {
+      "Name":"NEXTJS",
+      "Ref":4,
+      "Todos":[
+         
+      ],
+      "colorText":"#000000",
+      "estilo":{
+         
+      },
+      "IconStyle":"#000000"
+   },
+   {
+      "Name":"UVC",
+      "Ref":5,
+      "Todos":[
+         {
+            "Nome":"RRH - REVISAR",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Terminar guard",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Terminar MR2",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Rework Congregadores - Com o novo PM",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Sodoma e Gomorra",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Ato 1.5  - Iniciar",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Deroo Da no espaço - Reviver",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Guardiões - A prova de tudo",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"MR - Introspectivo",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Solos/MiniSeries dos Irmãos Intocáveis",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Solo/MiniSeries dos Fingers",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Solo/MiniSeries do Delimitador???",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Solo/MiniSeris do Arner",
+            "Feito":false,
+            "color":"#000"
+         },
+         {
+            "Nome":"Terminar RRH e uard m livros completos",
+            "Feito":false,
+            "color":"#000"
+         }
+      ],
+      "colorText":"#2bafff",
+      "estilo":{
+         
+      },
+      "IconStyle":"#000000"
+   }
+]
