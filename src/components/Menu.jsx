@@ -34,14 +34,8 @@ const Division = () => {
   );
 };
 
-const Item = ({ Icon, Name, Ref,estilo,IconStyle }) => {
-  const [colorIcon,setColorIcon] = useState(IconStyle)
-  // useEffect(() => {
-  //   console.log(IconStyle)
-  //   if (IconStyle === '#000000') {
-  //     setColorIcon('#fff')
-  //   }
-  // }, [])
+const Item = ({ Icon, Name, Ref,estilo,IconStyle,colorText }) => {
+
   const [selected, setSelect] = useState(false);
   const { setTexto, setRef, todoData } = useContext(UserContext);
   return (
@@ -60,7 +54,7 @@ const Item = ({ Icon, Name, Ref,estilo,IconStyle }) => {
       }}
     >
       {Icon != null && <Icon style={{ color: IconStyle && IconStyle !== '#000000' ? IconStyle : "white", fontSize: "24px"}} />}
-      <h2 style={{ width: "100%", fontSize: Name.length > 7 ? `${330 / Name.length}px` : '32px' }}>
+      <h2 style={{ width: "100%", fontSize: Name.length > 7 ? `${330 / Name.length}px` : '32px',color: colorText && colorText !== "#000000" ? colorText : "white" }}>
         {Name}
       </h2>
       {/*depois, no código de criar, deixar um max lenght pra nao ter como fazer um Name minúsculo.*/}
@@ -83,14 +77,14 @@ const Menu = () => {
         <AiOutlineCheck style={{ color: "white", fontSize: "54px" }} />
         <h1>To do List</h1>
       </div>
-      <a href="github.com/caiohvectora">by CaioH</a>
+      <a target={'_blank'} href="http://www.github.com/caiohvectora">by CaioH</a>
       {/* <Division />
         <Item Icon={AiOutlineCheck} Name={'Fazer o site todolist'}/>
         <Division />
         <Item Icon={AiFillPhone} Name={'Ligar pro et bilu'}/> */}
-      {todoData.map(({ Icon, Name, Ref,estilo,IconStyle }) => (
+      {todoData.map(({ Icon, Name, Ref,estilo,IconStyle,colorText }) => (
         <div key={Name + Ref}>
-          <Item Icon={Icon} Name={Name} Ref={Ref} estilo={estilo} IconStyle={IconStyle} />
+          <Item Icon={Icon} Name={Name} Ref={Ref} estilo={estilo} IconStyle={IconStyle} colorText={colorText} />
           <Division />
         </div>
       ))}
@@ -100,9 +94,9 @@ const Menu = () => {
               Icon: null,
               Ref: todoData.length,
               Todos: [],
+              colorText: '#000000',
               estilo: {}
           }
-          console.log(item.Ref)
           setTodos(prevList => [...prevList, item])
           setRef(item)
       }}>
